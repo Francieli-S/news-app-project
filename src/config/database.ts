@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { configs } from './../config/env.js';
+import { configs } from './env.js';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -14,6 +14,8 @@ export const AppDataSource = new DataSource({
   logging: true,
 });
 
+// it is not a config, 
+// TODO: move from here 
 export const connectDB = async () => {
   try {
     await AppDataSource.initialize();
