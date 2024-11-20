@@ -1,13 +1,12 @@
 import express from 'express';
 import { configs } from './config/env.js';
-import { connectDB } from './database/datasource.js';
+import { connectDB } from './config/database.js';
+import router from './routes.js';
 
 const app = express();
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Server working');
-});
+app.use('/api', router);
 
 const startServer = async () => {
   try {
@@ -21,6 +20,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-
-
