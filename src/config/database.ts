@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { configs } from './env.js';
+import { User } from '../entities/User.js';
 
 export const AppDataSource = new DataSource({
   type: 'postgres',
@@ -9,13 +10,13 @@ export const AppDataSource = new DataSource({
   username: configs.db.POSTGRES_USER,
   password: configs.db.POSTGRES_PASSWORD,
   database: configs.db.POSTGRES_DB,
-  // entities
+  entities: [User],
   synchronize: true,
   logging: true,
 });
 
-// it is not a config, 
-// TODO: move from here 
+// it is not a config,
+// TODO: move from here
 export const connectDB = async () => {
   try {
     await AppDataSource.initialize();
