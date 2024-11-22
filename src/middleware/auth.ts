@@ -17,7 +17,7 @@ export const authMiddleware = (
       throw new Error('Error in verifing the token');
     }
     const decode = jwt.verify(token, configs.auth.JWT_SECRET);
-    req.user = decode as { id: number };
+    req.user = decode as { userId: number };
     next();
   } catch (error) {
     res.status(500).send({ message: 'A server error occured', error });

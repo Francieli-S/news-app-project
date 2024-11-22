@@ -44,8 +44,18 @@ const login = async (req: Request, res: Response) => {
   }
 };
 
-const profile = (req: Request, res: Response) => {
-  res.send('User profile');
+const profile = async (req: Request, res: Response) => {
+  const userId = req.user?.userId
+  try {
+    const user = await userRepo.findOneBy({ id: userId });
+    if (!user) {
+      res.status(404).send({ message: 'User not founf' });
+      return;
+    }
+    res.status(200).send({user});
+  } catch (error) {
+    res.status(500).send({ message: 'Error in getting the prosile', error });
+  }
 };
 
 export default { resgister, login, profile };
