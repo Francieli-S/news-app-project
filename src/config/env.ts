@@ -10,6 +10,7 @@ const envFile =
 dotenv.config({path: envFile});
 
 export const configs = {
+  NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT || 5000,
   auth: { JWT_SECRET: process.env.JWT_SECRET || 'news_app' },
   db: {

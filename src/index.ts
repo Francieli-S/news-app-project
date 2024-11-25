@@ -10,13 +10,17 @@ app.use('/api', router);
 
 const startServer = async () => {
   try {
-    await connectDB();
-    app.listen(configs.PORT, () => {
-      console.log(`Server running on http://localhost:${configs.PORT}`);
-    });
+    if (configs.NODE_ENV !== 'test') {
+      await connectDB();
+      app.listen(configs.PORT, () => {
+        console.log(`Server running on http://localhost:${configs.PORT}`);
+      });
+    }
   } catch (error) {
     console.log('Failed to start the server', error);
   }
 };
 
 startServer();
+
+export default app;
