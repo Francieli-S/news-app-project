@@ -1,5 +1,5 @@
-import { Schema } from 'joi';
-import { Request, Response, NextFunction } from 'express';
+import type { Schema } from 'joi';
+import type { Request, Response, NextFunction } from 'express';
 
 export const validateRequest =
   (schema: Schema) => (req: Request, res: Response, next: NextFunction) => {

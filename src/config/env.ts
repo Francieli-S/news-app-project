@@ -4,10 +4,10 @@ const envFile =
   process.env.NODE_ENV === 'production'
     ? '.env.prod'
     : process.env.NODE_ENV === 'test'
-    ? '.env.test'
-    : '.env';
+      ? '.env.test'
+      : '.env';
 
-dotenv.config({path: envFile});
+dotenv.config({ path: envFile });
 
 export const configs = {
   NODE_ENV: process.env.NODE_ENV,
