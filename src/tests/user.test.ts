@@ -52,7 +52,11 @@ describe('User test', () => {
     expect(res.status).toBe(201);
     expect(res.body.message).toBe('User registered');
   });
+
+  // add others test cases to register
 });
+
+// add test cases to login
 
 describe('User profile test', () => {
   it('should retrive a user profile when a valid token is sent', async () => {
