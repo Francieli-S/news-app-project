@@ -57,6 +57,7 @@ describe('User test', () => {
 });
 
 // add test cases to login
+// new comment
 
 describe('User profile test', () => {
   it('should retrive a user profile when a valid token is sent', async () => {
