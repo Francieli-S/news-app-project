@@ -50,7 +50,7 @@ const profile = async (req: Request, res: Response) => {
   try {
     const user = await userRepo.findOneBy({ id: userId });
     if (!user) {
-      res.status(404).send({ message: 'User not founf' });
+      res.status(404).send({ message: 'User not found' });
       return;
     }
     res.status(200).send({ user });

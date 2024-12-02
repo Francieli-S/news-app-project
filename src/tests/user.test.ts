@@ -11,6 +11,7 @@ let randomUser: User;
 let validToken: string;
 let expiredToken: string;
 let invalidToken: string;
+let validTokenButUserNotRegistered: string
 const getUserProfileURL = '/api/users/profile';
 
 beforeAll(async () => {
@@ -27,11 +28,14 @@ beforeAll(async () => {
   validToken = jwt.sign({ userId: randomUser.id }, configs.auth.JWT_SECRET, {
     expiresIn: '1h',
   });
+  validTokenButUserNotRegistered = jwt.sign({ userId: 9999999 }, configs.auth.JWT_SECRET, {
+    expiresIn: '1h',
+  });
+  invalidToken = jwt.sign({ userId: randomUser }, 'invalidJWTSecret', {
+    expiresIn: '1h',
+  });
   expiredToken = jwt.sign({ userId: randomUser.id }, configs.auth.JWT_SECRET, {
     expiresIn: '-1h',
-  });
-  invalidToken = jwt.sign({ userId: 9999 }, configs.auth.JWT_SECRET, {
-    expiresIn: '1h',
   });
 });
 
@@ -67,6 +71,14 @@ describe('User profile test', () => {
     });
   });
 
+  it('should not retrive a user profile when a user is not found', async () => {
+    const res = await request(app)
+      .get(getUserProfileURL)
+      .set('Authorization', `Bearer ${validTokenButUserNotRegistered}`);
+    expect(res.status).toBe(404);
+    expect(res.body.message).toBe('User not found');
+  });
+
   it('should not retrive a user profile when a token is not sent', async () => {
     const res = await request(app)
       .get(getUserProfileURL)
@@ -75,12 +87,12 @@ describe('User profile test', () => {
     expect(res.body.message).toBe('No auth token provided');
   });
 
-  it('should not retrive a user profile when a user is not found', async () => {
+  it('should not retrive a user profile when a invalid token is sent', async () => {
     const res = await request(app)
       .get(getUserProfileURL)
       .set('Authorization', `Bearer ${invalidToken}`);
-    expect(res.status).toBe(404);
-    expect(res.body.message).toBe('User not founf');
+    expect(res.status).toBe(401);
+    expect(res.body.message).toBe('Invalid token');
   });
 
   it('should not retrive a user profile when the token is expired', async () => {
