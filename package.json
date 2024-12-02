@@ -1,13 +1,13 @@
 {
-  "name": "news-app",
+  "name": "news-app-project",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "nodemon -r dotenv/config src/index.ts",
+    "dev": "nodemon",
     "start": "NODE_ENV=production node dist/index.js",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test npm run build && jest",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
