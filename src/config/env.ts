@@ -13,6 +13,7 @@ export const configs = {
   NODE_ENV: process.env.NODE_ENV,
   PORT: process.env.PORT || 5000,
   auth: { JWT_SECRET: process.env.JWT_SECRET || 'news_app' },
+  NEWS_API_KEY: process.env.NEWS_API_KEY,
   db: {
     POSTGRES_HOST: process.env.POSTGRES_HOST || 'postgres',
     POSTGRES_PORT: parseInt(process.env.POSTGRES_PORT || '5432'),
